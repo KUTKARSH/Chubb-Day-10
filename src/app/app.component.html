@@ -1,0 +1,45 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+
+  <form [formGroup]="formObj" (submit)="saveForm()">
+    <div>
+      <input type="text" placeholder="Name" formControlName="name" />
+      <div class="form-validation-error" *ngIf="formError?.name">
+        <span *ngFor="let err of formError?.name">{{err?.message}}</span>
+      </div>
+    </div>
+    <div>
+      <input type="email" placeholder="Email" formControlName="email" />
+    </div>
+
+    <div>Address</div>
+    <div
+      formArrayName="addresses"
+      *ngFor="let item of addressArray?.controls; let i = index;"
+    >
+      <div class="flex" [formGroupName]="i">
+        <div>
+          <input type="text" formControlName="stNo" placeholder="St No" />
+          <div class="form-validation-error" *ngIf="formError?.addresses">
+            <span *ngFor="let err of formError?.addresses[i]?.stNo"
+              >{{err?.message}}</span
+            >
+          </div>
+        </div>
+        <div>
+          <input type="text" formControlName="doorNo" placeholder="Door No" />
+        </div>
+        <div>
+          <input type="text" formControlName="pinNo" placeholder="Pin" />
+        </div>
+      </div>
+    </div>
+    <button type="button" (click)="addAddress()">+Address</button>
+    <div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+</div>
